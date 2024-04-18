@@ -12,6 +12,9 @@ TARGET = greedy
 # Construir todos los objetivos
 all: $(bin)/$(TARGET)
 
+# Regla para hacer make greedy
+greedy : $(bin)/$(TARGET)
+
 # Construir el objetivo
 $(bin)/$(TARGET): $(src)/$(TARGET).cpp | $(bin)
 	$(CC) $(CFLAGS) -o $(bin)/$(TARGET) $(src)/$(TARGET).cpp
