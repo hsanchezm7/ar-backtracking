@@ -2,44 +2,43 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <sstream>
+
 #define NO_SOLUTION -1
 
 using namespace std;
 
-vector<int> readPrecios() {
+vector<int> readModelos(int n_modelos) {
     vector<int> precios;
-
-    string line;
-    getline(cin, line);
-
     int n;
-    stringstream ss(line);
-    while (ss >> n)
+
+    for (int i=0; i < n_modelos; i++) {
+        cin >> n;
         precios.push_back(n);
+    }
 
     return precios;
 }
 
+void printModelos(const vector<vector<int>>& prendas) {
+    for (const auto& fila : prendas) {
+        for (int elemento : fila) {
+            cout << elemento << " ";
+        }
+        cout << endl;
+    }
+}
+
 int backtracking(int M, int C, vector<vector<int>>& prendas) {
-    vector<bool> dp(M + 1, false);
-    dp[0] = true;
+    vector<bool> sumas;
 
     for (const auto& precios : prendas) {
+        vector<vector<int>> locales = prendas;
+        locales.erase(locales.begin());
         for (int p : precios) {
-            for (int i = M; i >= p; --i) {
-                if (dp[i - p]) {
-                    dp[i] = true;
-                }
-            }
+            return 
         }
     }
 
-    for (int i = M; i >= 0; --i) {
-        if (dp[i]) {
-            return M - i;
-        }
-    }
     return NO_SOLUTION;
 }
 
@@ -49,10 +48,13 @@ int main() {
 
     while(T--) {
         cin >> M >> C;
-        vector<vector<int>> prendas;
 
-        for (int i = 0; i < C; i++)
-            prendas.push_back(readPrecios());
+        vector<vector<int>> prendas;
+        int n_modelos;
+        for (int i = 0; i < C; i++) {
+            cin >> n_modelos; 
+            prendas.push_back(readModelos(n_modelos));
+        }
 
         int sol = backtracking(M, C, prendas);
         if (sol == NO_SOLUTION) {
@@ -60,6 +62,8 @@ int main() {
         } else {
             cout << sol << endl;
         }
+        
+        // printModelos(prendas);
     }
 
     return 0;
