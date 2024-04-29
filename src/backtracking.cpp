@@ -1,70 +1,54 @@
 #include <iostream>
-#include <string>
-#include <vector>
 #include <algorithm>
-
-#define NO_SOLUTION -1
+#include <cstdio>
+#include <cstring>
+#define NO_SOLUTION -10000000
 
 using namespace std;
 
-vector<int> readModelos(int n_modelos) {
-    vector<int> precios;
-    int n;
+// Variables globales
+int M, C, price[25][25];
+int memo[210][25];
 
-    for (int i=0; i < n_modelos; i++) {
-        cin >> n;
-        precios.push_back(n);
-    }
-
-    return precios;
-}
-
-void printModelos(const vector<vector<int>>& prendas) {
-    for (const auto& fila : prendas) {
-        for (int elemento : fila) {
-            cout << elemento << " ";
-        }
-        cout << endl;
-    }
-}
-
-int backtracking(int M, int C, vector<vector<int>>& prendas) {
-    vector<bool> sumas;
-
-    for (const auto& precios : prendas) {
-        vector<vector<int>> locales = prendas;
-        locales.erase(locales.begin());
-        for (int p : precios) {
-            return 
-        }
-    }
-
-    return NO_SOLUTION;
+/**
+ * Solución mediante backtracking al problema de maximización 
+ * de las prendas de ropa para la boda
+ *
+ * @param pres Presupuesto del subproblema
+ * @param n Número de prendas cogidas. Inicialmente 0
+ * @return Suma máxima del precio de las prendas o "NO_SOLUTION" si
+ * no hay ninguna combinación posible de C prendas
+ */
+int backtracking(int pres, int n = 0) {
+    if (pres < 0) 
+        return NO_SOLUTION;
+    if (n == C) 
+        return M - pres;
+    int & res = memo[pres][n];
+    if (res != -1) 
+        return res;
+    for (int model = 1; model <= price[n][0]; model++)
+        res = max(res, backtracking(pres - price[n][model], n + 1));
+    return res;
 }
 
 int main() {
-    int T, M, C;
+    int i, j, T, sol;
+
     cin >> T;
-
-    while(T--) {
+    while (T--) {
         cin >> M >> C;
-
-        vector<vector<int>> prendas;
-        int n_modelos;
-        for (int i = 0; i < C; i++) {
-            cin >> n_modelos; 
-            prendas.push_back(readModelos(n_modelos));
+        for (i = 0; i < C; i++) {
+            cin >> price[i][0];
+            for (j = 1; j <= price[i][0]; j++) {
+                cin >> price[i][j];
+            }
         }
-
-        int sol = backtracking(M, C, prendas);
-        if (sol == NO_SOLUTION) {
+        memset(memo, -1, sizeof memo);
+        sol = backtracking(M, 0);
+        if (sol < 0) 
             cout << "no solution" << endl;
-        } else {
+        else 
             cout << sol << endl;
-        }
-        
-        // printModelos(prendas);
     }
-
-    return 0;
 }

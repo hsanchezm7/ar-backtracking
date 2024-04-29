@@ -4,6 +4,8 @@
 
 using namespace std;
 
+// TDA Solución compuesto por la máxima diversidad y
+// el subconjunto que la forma
 struct Solucion {
     int diversidad;
     set<int> subset;
@@ -18,7 +20,7 @@ void readDistances(int n, vector<vector<int>>& distances) {
     }
 }
 
-// Imprime la suma máxima y el subconjunt solución
+// Imprime la suma máxima y el subconjunto solución
 void printSolution(int n, Solucion s) {
     cout << s.diversidad << endl;
     for (int i = 0; i < n; ++i) {
@@ -31,6 +33,16 @@ void printSolution(int n, Solucion s) {
     cout << endl;
 }
 
+/**
+ * Solución mediante avance rápido al problema de la subpoblación
+ * con mayor diversidad 
+ *
+ * @param n Tamaño del conjunto origial
+ * @param m Tamaño del subconjunto buscado
+ * @param distances Matriz de distancias
+ * @return Solución compuesta por la diversidad máxima y
+ * el subconjunto que la forma
+ */
 Solucion greedy(int n, int m, const vector<vector<int>> distances) {
     int maxSum = 0;
     set<int> maxSubset;
