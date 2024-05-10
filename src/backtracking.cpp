@@ -1,34 +1,42 @@
 #include <iostream>
 #include <algorithm>
-#include <cstdio>
 #include <cstring>
 #define NO_SOLUTION -10000000
 
 using namespace std;
 
-// Variables globales
-int M, C, price[25][25];
-int memo[210][25];
+/* Variables globales */
+int M, C, price[20][20];
+int memo[200][20];
+
+/* Función genérica que indica si un subproblema es posible solución */
+bool solucion(int budget, int n) {
+    return (n == C && budget <= M);
+}
 
 /**
  * Solución mediante backtracking al problema de maximización 
  * de las prendas de ropa para la boda
  *
- * @param pres Presupuesto del subproblema
- * @param n Número de prendas cogidas. Inicialmente 0
+ * @param budget presupuesto del subproblema
+ * @param n Número de prendas cogidas (nivel del árbol). Inicialmente 0
  * @return Suma máxima del precio de las prendas o "NO_SOLUTION" si
  * no hay ninguna combinación posible de C prendas
  */
-int backtracking(int pres, int n = 0) {
-    if (pres < 0) 
+int backtracking(int budget, int n = 0) {
+    if (budget < 0)
         return NO_SOLUTION;
-    if (n == C) 
-        return M - pres;
-    int & res = memo[pres][n];
-    if (res != -1) 
+
+    if (solucion(budget, n))
+        return M - budget;
+
+    int & res = memo[budget][n];
+    if (res != -1)
         return res;
+
     for (int model = 1; model <= price[n][0]; model++)
-        res = max(res, backtracking(pres - price[n][model], n + 1));
+        res = max(res, backtracking(budget - price[n][model], n + 1));
+
     return res;
 }
 

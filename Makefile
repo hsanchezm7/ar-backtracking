@@ -6,22 +6,24 @@ CFLAGS =
 src = src
 bin = bin
 # El nombre del ejecutable
-TARGET = greedy
+GREEDY_TARGET = greedy
+BACKTRACKING_TARGET = backtracking
 
 
 # Construir todos los objetivos
-all: $(bin)/$(TARGET)
-
-# Regla para hacer make greedy
-greedy : $(bin)/$(TARGET)
+all: greedy backtracking
 
 # Construir el objetivo
-$(bin)/$(TARGET): $(src)/$(TARGET).cpp | $(bin)
-	$(CC) $(CFLAGS) -o $(bin)/$(TARGET) $(src)/$(TARGET).cpp
+greedy: $(src)/$(GREEDY_TARGET).cpp | $(bin)
+	$(CC) $(CFLAGS) -o $(bin)/$(GREEDY_TARGET) $(src)/$(GREEDY_TARGET).cpp
+
+# Construir el objetivo
+backtracking: $(src)/$(BACKTRACKING_TARGET).cpp | $(bin)
+	$(CC) $(CFLAGS) -o $(bin)/$(BACKTRACKING_TARGET) $(src)/$(BACKTRACKING_TARGET).cpp
 
 # Ejecutar el objetivo
-run:
-	./$(bin)/$(TARGET)
+#run:
+#	./$(bin)/$(TARGET)
 
 # Limpiar los archivos generados
 clean: 
