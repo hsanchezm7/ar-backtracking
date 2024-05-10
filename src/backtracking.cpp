@@ -6,8 +6,8 @@
 using namespace std;
 
 /* Variables globales */
-int M, C, price[20][20];
-int memo[200][20];
+int M, C, price[20+1][20+1];
+int memo[200+1][20+1];
 
 /* Función genérica que indica si un subproblema es posible solución */
 bool solucion(int budget, int n) {
@@ -45,6 +45,7 @@ int main() {
 
     cin >> T;
     while (T--) {
+        
         cin >> M >> C;
         for (i = 0; i < C; i++) {
             cin >> price[i][0];
@@ -59,4 +60,6 @@ int main() {
         else 
             cout << sol << endl;
     }
+
+    return 0;
 }

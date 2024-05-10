@@ -18,7 +18,9 @@ El código se puede compilar mediante el comando `make` usando el archivo Makefi
 
 Compilar usando make:
 ```bash
-  $ make
+  $ make all
+  $ make greedy
+  $ make backtracking
 ```
 
 Una vez compilado, ejecutamos el binario:

@@ -9,10 +9,10 @@ using namespace std;
 void generador(int n) {
     int K, r;
     for(int i = 0; i < n; i++) {
-        K = rand() % 20 + 1;
+        K = rand() % 200 + 1;
         cout << K << " ";
         for(int j = 0; j < K; j++) {
-            r = rand() % 200 + 1;
+            r = rand() % 10 + 1;
             cout << r  << " ";
         }
         cout << endl;
@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
     
     int M = rand() % 200 + 1;
     cout << 1 << endl;
-    cout << 10000 << " " << n << endl;
+    cout << M << " " << n << endl;
     generador(n);
 
     return 0;
